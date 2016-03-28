@@ -15,6 +15,8 @@ class Delivery {
     String vehicleNumber
     Date deliveryDate
     Date lastUpdated
+    String chequePath
+    boolean isRemoved
 
     static mapping = {
         autoTimestamp true

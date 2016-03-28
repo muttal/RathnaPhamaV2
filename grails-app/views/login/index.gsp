@@ -46,28 +46,51 @@
         min-height: 48px;
     }
 
-    .inputdemoIcons md-input-container:not(.md-input-invalid) > md-icon.email {
-        color: green;
+    md-card {
+        background-color: transparent;
     }
 
-    .inputdemoIcons md-input-container:not(.md-input-invalid) > md-icon.name {
-        color: dodgerblue;
+    md-content{
+        background-color: transparent;
     }
-
-    .inputdemoIcons md-input-container.md-input-invalid > md-icon.email,
-    .inputdemoIcons md-input-container.md-input-invalid > md-icon.name {
-        color: red;
+    md-datepicker{
+        background-color: transparent;
     }
-
+    #background{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("RathnaPharma/images/logo-leaf.jpe") no-repeat center center fixed;
+        opacity: 0.1;
+        filter: alpha(opacity=10);
+    }
+    .centered {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        /* bring your own prefixes */
+        transform: translate(-50%, -50%);
+        z-index: 99;
+    }
     </style>
 
 </head>
 
 <body ng-app='loginApp' layout="row">
+<div id="background"></div>
 <md-content style="width:100%;">
-    <md-toolbar style="background-color:#5d4037;min-height:25px;text-align:center;">
-        <span>Rathna Pharmaceuticals</span>
+    <md-toolbar style="background-color:#4A148C;">
+
+        <div class="md-toolbar-tools">
+            <h2>
+                <span>Rathna Pharmaceuticals</span>
+            </h2>
+            <span flex></span>
+        </div>
     </md-toolbar>
+
 
     <div ng-view></div>
 
@@ -118,6 +141,10 @@
                 }
             })
             .config(function ($routeProvider, $mdDateLocaleProvider, $locationProvider) {
+                $mdDateLocaleProvider.parseDate = function(dateString) {
+                    var m = moment(dateString, 'DD/MM/YYYY', true);
+                    return m.isValid() ? m.toDate() : new Date(NaN);
+                };
                 $mdDateLocaleProvider.formatDate = function (date) {
                     return moment(date).format('DD/MM/YYYY');
                 };

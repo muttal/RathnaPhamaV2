@@ -60,6 +60,7 @@ grails {
     }
 }
 
+grails.converters.json.default.deep = false
 
 grails.converters.encoding = "UTF-8"
 // scaffolding templates configuration

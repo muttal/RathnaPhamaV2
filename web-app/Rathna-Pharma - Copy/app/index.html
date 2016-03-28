@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Rathna Enterprises</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
+
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+    <link rel="stylesheet" href="./bower_components/angular-material/angular-material.css"/>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="assets/app.css"/>
+
+    <style type="text/css">
+        /**
+        * Hide when Angular is not yet loaded and initialized
+        */
+
+        [ng\:cloak],
+        [ng-cloak],
+        [data-ng-cloak],
+        [x-ng-cloak],
+        .ng-cloak,
+        .x-ng-cloak {
+        display: none !important;
+        }
+    </style>
+
+</head>
+
+<body ng-app="starterApp" layout="row" ng-cloak>
+<md-content style="width:100%;">
+    <md-toolbar style="background-color:#5d4037;min-height:25px;text-align:center;">
+        <span>Rathna Pharmaceuticals</span>
+    </md-toolbar>
+    <div ng-view></div>
+</md-content>
+
+
+<script src="./bower_components/angular/angular.js"></script>
+<script src="./bower_components/angular-animate/angular-animate.js"></script>
+<script src="./bower_components/angular-aria/angular-aria.js"></script>
+<script type="text/javascript" src="./bower_components/angular-material/angular-material.js"></script>
+<script src="./bower_components/angular-route/angular-route.js"></script>
+
+<script type="text/javascript">
+        angular
+            .module('starterApp', ['ngRoute','ngMaterial'])
+            .controller('EmployeeCtrl', function($scope) {
+                $scope.employee = {
+                    firstName: '',
+                    lastName: '',
+                    company: 'Rathna Pharmaceuticals',
+					startDate: '',
+                    address: 'United India Colony, Kodambakkam',
+					addressTwo: '',
+                    city: 'Chennai',
+                    state: 'TN',
+                    postalCode: '600032',
+					cell: '',
+					landline: '',
+					email: '',
+					role: ''
+                };
+                $scope.states = ('AR AS BR CG GA GJ HR HP JK JH KA KL MP MH MN ML MZ NL OR PB RJ SK TN TR UK UP WB TN TR AN CH DH DD DL LD PY').
+				split(' ').map(function(state) {
+                    return {
+                        abbrev: state
+                    };
+                })
+            })
+            .controller('CustomerCtrl', function($scope) {
+                $scope.customer = {
+                    name: '',
+                    address: '',
+                    addressTwo: '',
+                    city: '',
+                    state: '',
+                    zip: '',
+                    cell: '',
+                    landline: '',
+                    email: '',
+                    area: '',
+                    code: ''
+                };
+                $scope.states = ('AR AS BR CG GA GJ HR HP JK JH KA KL MP MH MN ML MZ NL OR PB RJ SK TN TR UK UP WB TN TR AN CH DH DD DL LD PY').
+				split(' ').map(function(state) {
+                    return {
+                        abbrev: state
+                    };
+                })
+            })
+            .controller('DeliveryCtrl', function($scope, $timeout, $q, $log) {
+
+                var self = this;
+                self.simulateQuery = false;
+                self.isDisabled = false;
+
+                self.states = loadAll();
+                self.querySearch = querySearch;
+                self.selectedItemChange = selectedItemChange;
+                self.searchTextChange = searchTextChange;
+                self.newState = newState;
+                self.deliveryEmployee = "Baba";
+
+                function newState(state) {
+                }
+
+
+                function querySearch(query) {
+                    var results = query ? self.states.filter(createFilterFor(query)) : self.states,
+                        deferred;
+                    if (self.simulateQuery) {
+                        deferred = $q.defer();
+                        $timeout(function() {
+                            deferred.resolve(results);
+                        }, Math.random() * 1000, false);
+                        return deferred.promise;
+                    } else {
+                        return results;
+                    }
+                }
+
+                function searchTextChange(text) {
+                    $log.info('Text changed to ' + text);
+                }
+
+                function selectedItemChange(item) {
+                    self.deliveryEmployee = item.display;
+                }
+                /**
+                 * Build `states` list of key/value pairs
+                 */
+                function loadAll() {
+                    var allStates = 'Arun, Naveen, Balaji, Ramesh, Vignesh, Saravanan, Mayilvahanan';
+                    return allStates.split(/, +/g).map(function(state) {
+                        return {
+                            value: state.toLowerCase(),
+                            display: state
+                        };
+                    });
+                }
+                /**
+                 * Create filter function for a query string
+                 */
+                function createFilterFor(query) {
+                    var lowercaseQuery = angular.lowercase(query);
+                    return function filterFn(state) {
+                        return (state.value.indexOf(lowercaseQuery) === 0);
+                    };
+                }
+
+                $scope.states = ('AP AR AS BR CG GA GJ HR FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
+                    'MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI ' +
+                    'WY').split(' ').map(function(state) {
+                    return {
+                        abbrev: state
+                    };
+                });
+
+                $scope.addRole = function() {
+                    var newRole = new function() {
+                        //this.customer = $scope.deliveryinvoice,
+                        //this.company = $scope.deliveryinvoice,
+                        this.employee = self.deliveryEmployee,
+                            this.invoice = $scope.deliveryinvoice,
+                            this.date = $scope.deliverydate,
+                            this.value = $scope.deliveryvalue,
+                            this.count = $scope.deliverycount,
+                            this.vehicle = $scope.deliveryvehicle,
+                            this.start = $scope.deliverystart
+                    }
+
+
+                    $scope.roleList.push(newRole);
+                }
+
+                $scope.roleList = [];
+
+            })
+            .controller('DemoCtrl', function($timeout, $q, $log) {
+                var self = this;
+                self.simulateQuery = false;
+                self.isDisabled = false;
+
+                self.states = loadAll();
+                self.querySearch = querySearch;
+                self.selectedItemChange = selectedItemChange;
+                self.searchTextChange = searchTextChange;
+                self.newState = newState;
+
+                function newState(state) {
+                    alert("Sorry! You'll need to create a Constituion for " + state + " first!");
+                }
+
+                function querySearch(query) {
+                    var results = query ? self.states.filter(createFilterFor(query)) : self.states,
+                        deferred;
+                    if (self.simulateQuery) {
+                        deferred = $q.defer();
+                        $timeout(function() {
+                            deferred.resolve(results);
+                        }, Math.random() * 1000, false);
+                        return deferred.promise;
+                    } else {
+                        return results;
+                    }
+                }
+
+                function searchTextChange(text) {
+                    $log.info('Text changed to ' + text);
+                }
+
+                function selectedItemChange(item) {
+                    $log.info('Item changed to ' + JSON.stringify(item));
+                }
+                /**
+                 * Build `states` list of key/value pairs
+                 */
+                function loadAll() {
+                    var allStates = 'A.S.B. AGENCIES PVT. LTD.,ABI PHARMA,ALFA AGENCIES,AROGYA HEALTH CARE PVT LTD,ARUN PHARMA & SURGICALS C,ARVINDH VACCINE CENTRE - 25207,ASB AGENCIES PVT LTD,ASHOK ENTERPRISES,BALAJI PHARMACEUTICALS,BENSUN PHARMA,CAPSULE PHARMA,CHANDRALEKHA ASSOCIATES,CHENNAI MEDICAL AGENCIES,CHENNAI PHARMA,CHENNAI PHARMA DISTRIBUTOR,CHENNAI PHARMA DISTRIBUTORS - 25801,Chennai Port Trust - 26460,CHETTINAD ACADEMY OF RESEARCH & EDU,CITY PHARMACEUTICALS,DHANVANTHRI AGENCIES,DINAKARAN MEDICAL AGENCIES,ETERNO PHARMA & DIAGNOSTICS - 26523,F. SAMPATH AND COMPANY,FAR EAST PHARMACEUTICALS,FUTURE RETAIL LIMITED-RDC,FUTURE RETAIL LIMITED-ROYAPETTAHA,FUTURE RETAIL LIMITED-VELACHERY,G G PHARMA,G.G. MISSER & CO,GOODHOPE HEALTH CARE PVT.,GOUTHAM PHARMA AGENCIES,GOWRI ENTERPRISES,GUNDECHA PHARMA DIST,GURU ENTERPRISES,INDIAN PHARMACEUTICALS,J.F. LETTIOLE AGENCIES,J.P.ENTERPRISES,JAIN PHARMACEUTICALS,JAYALAKSHMI MARKETING SERVICE,JAYAM AGENCIES,"JAYAM AGENCIES,",JAYANTHI AGENCIES,Jayasanthi Pharma & Vaccine (18463),JOE HEALTH CARE,JYOTHI PHARMA,Kamakshi Trading Company,KAPITAL CARE - 26532 - QG,KAVITHA PHARMA PVT LTD,Kent Pharma,KIRAN PHARMACUTICALS,KUMAR AGENCIES,KUMARAN AGENCIES,L.P.H. PHARMA PVT LTD,LIFECARE PHARMACEUTICALS,M S DISTRIBUTORS,MADHU ENTERPRISES,MAHAVEER HEALTHCARE PVT LT,MAHENDRAN & CO.,MANGALAM ENTERPRISES,MEDICINE CHAMBER,MEDICINE ZONE,MEDIHAUXE ASSOCIATERS,Medihauxe International (P) Ltd - 18721,MEENA MEDICAL AGENCIES,MEENA MEDICAL DISTRIBUTORS,MEENAKSHI MEDICAL DISTRIBUTORS,MERP INDIA,MIDAS INDIA,MUTHU MEDICALS,MUTHU PHARMA AGENCIES PVT,NATARAJ PHARMACEUTICALS,NEST HEALTH CARE - CCT,NEW R R PHARMACEUTICAL DIS,OMKAR MEDICAL DISTRIBUTOR PVT,PALANI MEDICAL AGENCIES,PALEPU PHARMA (P) LTD,PALEPU PHARMA PVT LTD,PALEPU PHARMA PVT LTD,PARAS DISTRIBUTORS,PEARL MEDICALS PRIVATE LTD.,PERFECT MEDICAL AGENCIES,PERFECT MEDICAL ENTERPRISES,PHARMA TREK PVT LTD,PKB PHARMA,PLAS PHARMA,POWER PHARMACEUTICALS PVT.,PRAKAS PHARMACY PRIVATE LID,PREM AGENCIES,PURANI HOSPITAL & SUPPLY LIMITED,R R PHARMA,R S PHARMA DISTRIBUTORS,R.E. AGENCIES,R.G. AGENCIES,RADA AGENCIES (25467),RAM ENTERPRISES,RAMSON PHARMA DISTRIBUTORS - QG (26444),RAU & CO.,REKHA PHARMACEUTICALS,RISHAB DISTRIBUTORS,S D JAIN PHARMACEUTICALS PVT LTD,"S.J.R Agencies,",S.V.S AGENCIES,SABARI VACCINES,SAMBANDH INTERNATIONAL,SANGAM PHARMA DISTRIBUTIORS,SANGAM PHARMA DISTRIBUTORS,SAYAN PHARMACEUTICALS,SAYAR PHARMACEUTICAL DISTR,SERUM VACCINES,SHANKARA MEDICINES P LTD,SHANTHINATH AGENCIES,SHANTHINI PHARMA DIST,SHELL PHARMACEUTICALS PVT LTD,Shree Amman Pharma,SHREE SWAMY PHARMA,SHRI BHAKTI MEDICAL AG. -,SHRI JAYANTHI ENTERPRISES,SHRI KALKI SPECIALITYS,SHRI VENKATALASHMI PHARMA DISTRIBUTORS,Sri Jayanthi Enterprises,SRI AMMAN MEDICAL AGENCIES,SRI BHOMIA PHARMACEUTICALS,SRI CHANDRALEKHA ENTERPRISES,SRI KRISH ASSOCIATES,SRI LAKSHMI ENTERPRISES -,SRI MAHAVEER MEDICAL STORE - 18289,Sri Murugan Agencies,SRI PADMAM BIOSCIENCES PVT LTD,SRI PRATHYUSHA PHARMACEUTICALS,SRI RANGANATHAN MEDICAL STORES,Sri Udyam Enterprises,SRI VELMURUGAN AGENCIES,SRINATH MEDICAL AGENCIES,SRIVARI PHARMA (Biotech),Sugambhika Pharmaceuticals,SUNDEEP PHARMA DIST,SUNRISE AGENCIES,SUNWAY HEALTHCARE (25710),Surana Pharmaceuticals,SURESH PHARMA AGENCIES CHENNAI,THE MADRAS MEDICAL MISSION,TRANSWORLD MEDICAL CORPORATION PVT. LTD,Tuberculosis Research Centre,ULTRA PHARMAAS,V M PHARMACEUTICALS,V.V.R ENTERPRISES,VACCINE HOUSE,VACCINE LIFE AGENCY,VACCINE PHARMA DISTRIBUTORS,VACCINE WORLD,VENTURE HEALTH NEEDS,VENTURE HEALTH NEEDS,VIJAY,VIJAY PHARMA DISTRIBUTORS';
+                    return allStates.split(',').map(function(state) {
+                        return {
+                            value: state.toLowerCase(),
+                            display: state
+                        };
+                    });
+                }
+                /**
+                 * Create filter function for a query string
+                 */
+                function createFilterFor(query) {
+                    var lowercaseQuery = angular.lowercase(query);
+                    return function filterFn(state) {
+                        return (state.value.indexOf(lowercaseQuery) === 0);
+                    };
+                }
+            })
+            .controller('CompanySearchCtrl', function($timeout, $q, $log) {
+                var self = this;
+                self.simulateQuery = false;
+                self.isDisabled = false;
+
+                self.states = loadAll();
+                self.querySearch = querySearch;
+                self.selectedItemChange = selectedItemChange;
+                self.searchTextChange = searchTextChange;
+                self.newState = newState;
+
+                function newState(state) {
+                    alert("Sorry! You'll need to create a Constituion for " + state + " first!");
+                }
+
+                function querySearch(query) {
+                    var results = query ? self.states.filter(createFilterFor(query)) : self.states,
+                        deferred;
+                    if (self.simulateQuery) {
+                        deferred = $q.defer();
+                        $timeout(function() {
+                            deferred.resolve(results);
+                        }, Math.random() * 1000, false);
+                        return deferred.promise;
+                    } else {
+                        return results;
+                    }
+                }
+
+                function searchTextChange(text) {
+                    $log.info('Text changed to ' + text);
+                }
+
+                function selectedItemChange(item) {
+                    $log.info('Item changed to ' + JSON.stringify(item));
+                }
+                /**
+                 * Build `states` list of key/value pairs
+                 */
+                function loadAll() {
+                    var allStates = 'Alembic Pharmaceuticals Ltd,Panacea Biotec Ltd,Wockhardt Ltd,Adcock Ingram Healthcare Ltd.,Charak Pharma Pvt. Ltd,MSN Labs Pvt. Ltd,Koye Pharma,Rathna Specialities,Apex Labs Pvt. Ltd,Sentinel Remedies,Sun Dayota Numantis,Q Check Pharma,Unimark Remedies Pvt. Ltd,By By Pharma';
+                    return allStates.split(',').map(function(state) {
+                        return {
+                            value: state.toLowerCase(),
+                            display: state
+                        };
+                    });
+                }
+                /**
+                 * Create filter function for a query string
+                 */
+                function createFilterFor(query) {
+                    var lowercaseQuery = angular.lowercase(query);
+                    return function filterFn(state) {
+                        return (state.value.indexOf(lowercaseQuery) === 0);
+                    };
+                }
+            })
+            .controller('ExampleController', ['$scope', function($scope) {
+				  $scope.list = [];
+				  $scope.text = 'hello';
+				  $scope.submit = function() {
+				  alert($scope.text);
+					if ($scope.text) {
+					  $scope.list.push(this.text);
+					  $scope.text = '';
+					}
+				  };
+				}])
+            .config(function($routeProvider) {	
+				$routeProvider
+
+					// route for the home page
+					.when('/', {
+						templateUrl : 'pages/home.html'
+					})
+					.when('/add', {
+						templateUrl : 'pages/add.html'
+					})
+            });
+
+
+</script>
+
+</body>
+
+</html>

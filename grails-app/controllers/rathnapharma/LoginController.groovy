@@ -43,7 +43,6 @@ class LoginController {
 
     def validate() {
         def user = JSON.parse(params.user)
-        println user
 
         if (user.email == null || user.password == null || user.dob == null) {
             render(status: 200, text: 'User could not be logged in. Email, Password and Start Date are mandatory')
@@ -59,11 +58,17 @@ class LoginController {
                 render(status: 200, text: 'Invalid Login')
             }
             else{
-                println "logged"
                 session.setAttribute("loggedInEmployee",employee)
+                session.setAttribute("role",employee.role.roleName)
                 render(status: 200, text:  'Logged')
             }
         }
+    }
+
+    def logOut(){
+        println "action invoked"
+        session.invalidate()
+        render(status: 200, text:  'Logged Out')
     }
 
 }

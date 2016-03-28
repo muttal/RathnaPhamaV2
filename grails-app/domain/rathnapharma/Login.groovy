@@ -8,6 +8,7 @@ class Login {
     String userName
     String password
     Employee employee
+    boolean isRemoved
 
 
 }

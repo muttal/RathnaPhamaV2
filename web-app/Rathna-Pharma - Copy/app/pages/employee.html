@@ -1,0 +1,117 @@
+<div layout="row" layout-xs="column" layout-sm="column">
+    <div flex ng-hide="sessionConfig.employee">
+        <div layout-gt-sm="row" layout-align="center">
+            <div ng-controller="EmployeeCtrl" layout="column" ng-cloak class="md-inline-form"
+                 style="border: 1px solid beige;">
+                <md-content layout-padding>
+                    <md-toolbar layout="row" layout-align="center center">
+                        <h3>{{employee.mode}} Employee</h3>
+                    </md-toolbar>
+                    <div style="overflow:hidden;">
+                        <form name="userForm" novalidate ng-submit="userForm.$valid && saveEmployee()">
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex>
+                                    <label>First name</label>
+                                    <input name="employeeName" ng-model="employee.firstName" required>
+                                    <div ng-messages="userForm.employeeName.$error" role="alert">
+                                        <div ng-message="required" class="my-message">First name is mandatory</div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex>
+                                    <label>Last Name</label>
+                                    <input name="employeeLastName" ng-model="employee.lastName" required>
+                                    <div ng-messages="userForm.employeeLastName.$error" role="alert">
+                                        <div ng-message="required" class="my-message">Last name is mandatory</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex>
+                                    <label>Company (Disabled)</label>
+                                    <input ng-model="employee.company" disabled>
+                                </md-input-container>
+                                <md-datepicker flex ng-model="employee.startDate" md-placeholder="Start Date">
+                                </md-datepicker>
+                            </div>
+                            <md-input-container class="md-block">
+                                <label>Address</label>
+                                <input name="employeeAddress" ng-model="employee.addressOne" required>
+                                <div ng-messages="userForm.employeeAddress.$error" role="alert">
+                                    <div ng-message="required" class="my-message">Address is mandatory</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container md-no-float class="md-block">
+                                <input ng-model="employee.addressTwo" placeholder="Address 2">
+                            </md-input-container>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>City</label>
+                                    <input ng-model="employee.city">
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>State</label>
+                                    <md-select ng-model="employee.state">
+                                        <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+                                            {{state.abbrev}}
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Postal Code</label>
+                                    <input name="postalCode" ng-model="employee.postalCode" placeholder="600024"
+                                           required
+                                           ng-pattern="/^[0-9]{6}$/" ng-minlength="6" ng-maxlength="6">
+                                    <div ng-messages="userForm.postalCode.$error" role="alert">
+                                        <div ng-message="required" class="my-message">Postal Code not valid</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Cell</label>
+                                    <input name="cell" ng-model="employee.cellphone" ng-required="!employee.landline""
+                                    minlength="10" maxlength="100"/>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Landline</label>
+                                    <input name="landline" ng-model="employee.landline"
+                                           ng-required="!employee.cellphone"
+                                           minlength="8"
+                                           maxlength="100"/>
+                                    <div ng-messages="userForm.cell.$error || userForm.landline.$error" role="alert">
+                                        <div ng-message="required" class="my-message">Enter either Cell or landline</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <div layout="column" style="width:75%;">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Email</label>
+                                        <input name="email" ng-model="employee.email" required
+                                               maxlength="100"/>
+                                        <div ng-messages="userForm.email.$error.email" role="alert">
+                                            <div ng-message="required" class="my-message">Not vaid Email</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                                <div layout="column">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Role</label>
+                                        <md-select ng-model="employee.role">
+                                            <md-select-label>Manager</md-select-label>
+                                            <md-option ng-repeat="role in roles" value="{{role.desc}}">
+                                                {{role.desc}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                            <md-button type="submit" class="md-raised md-primary">Save</md-button>
+                            <span class="label label-warning" ng-show="showMessage">{{hello}}</span>
+                        </form>
+                    </div>
+                </md-content>
+            </div>
+        </div>
+    </div>
+</div>

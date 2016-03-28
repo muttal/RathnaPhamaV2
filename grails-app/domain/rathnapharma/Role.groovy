@@ -6,4 +6,5 @@ class Role {
     }
     String roleName
     Date lastUpdated
+    boolean isRemoved
 }

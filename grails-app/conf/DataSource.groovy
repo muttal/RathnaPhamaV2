@@ -17,7 +17,7 @@ hibernate {
 environments {
     development {
         dataSource {
-            dbCreate = "create-drop"
+            dbCreate = "update"
             url = "jdbc:mysql://localhost/rathna_pharma"
             username = "rathna"
             password = "(O!mb@tOre"

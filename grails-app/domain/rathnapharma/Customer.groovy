@@ -17,6 +17,7 @@ class Customer {
     String area
     String code
     Date lastUpdated
+    boolean isRemoved
 
     static mapping = {
         autoTimestamp true

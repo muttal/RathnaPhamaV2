@@ -1,0 +1,99 @@
+<div layout="row" layout-xs="column" layout-sm="column">
+    <div flex ng-hide="sessionConfig.customer">
+        <div layout-gt-sm="row" layout-align="center">
+            <div ng-controller="CustomerCtrl" layout="column" ng-cloak class="md-inline-form"
+                 style="border: 1px solid beige;">
+                <md-content layout-padding>
+                    <md-toolbar layout="row" layout-align="center center" style="background-color:#009688">
+                        <h3>{{customer.mode}} Customer</h3>
+                    </md-toolbar>
+                    <div style="overflow:hidden;">
+                        <form name="customerForm" novalidate ng-submit="customerForm.$valid && saveCustomer()">
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Name</label>
+                                    <input name="customerName" ng-model="customer.name" required>
+                                    <div ng-messages="customerForm.customerName.$error" role="alert">
+                                        <div ng-message="required" class="my-message">First name is mandatory</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <md-input-container class="md-block">
+                                <label>Address</label>
+                                <input name="customerAddress" ng-model="customer.address" required>
+                                <div ng-messages="customerForm.customerAddress.$error" role="alert">
+                                    <div ng-message="required" class="my-message">Address is mandatory</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container md-no-float class="md-block">
+                                <input ng-model="customer.addressTwo" placeholder="Address 2">
+                            </md-input-container>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>City</label>
+                                    <input name="customerCity" ng-model="customer.city" required>
+                                    <div ng-messages="customerForm.customerCity.$error" role="alert">
+                                        <div ng-message="required" class="my-message">City is mandatory</div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>State</label>
+                                    <md-select ng-model="customer.state" required>
+                                        <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+                                            {{state.abbrev}}
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Postal Code</label>
+                                    <input name="postalCode" ng-model="customer.zip" placeholder="Ex: 600024" required
+                                           ng-pattern="/^[0-9]{6}$/" md-maxlength="6">
+                                    <div ng-messages="customerForm.postalCode.$error" role="alert">
+                                        <div ng-message="required" class="my-message">Postal Code not invalid</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Cell</label>
+                                    <input name="cell" ng-model="customer.cell" ng-required="!customer.landline""
+                                    minlength="10" maxlength="100"/>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Landline</label>
+                                    <input name="landline" ng-model="customer.landline"
+                                           ng-required="!customer.cellphone"
+                                           minlength="8"
+                                           maxlength="100"/>
+                                    <div ng-messages="customerForm.cell.$error || customerForm.landline.$error" role="alert">
+                                        <div ng-message="required" class="my-message">Enter either Cell or landline</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Email</label>
+                                <input name="email" ng-model="customer.email" required maxlength="100"/>
+                                <div ng-messages="customerForm.email.$error.email" role="alert">
+                                    <div ng-message="required" class="my-message">Not vaid Email</div>
+                                </div>
+                            </md-input-container>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Area</label>
+                                    <input name="area" ng-model="customer.area"/>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Code</label>
+                                    <input name="code" ng-model="customer.code"/>
+                                </md-input-container>
+                            </div>
+                            <md-button type="submit" class="md-raised md-primary" style="background-color:#009688">Save
+                            </md-button>
+                            <span class="label label-warning" ng-show="showMessage">{{hello}}</span>
+                        </form>
+                    </div>
+                </md-content>
+            </div>
+        </div>
+    </div>
+</div>

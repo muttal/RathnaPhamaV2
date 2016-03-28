@@ -29,6 +29,7 @@ class Employee {
     Employee changedBy
     String fullName
     Integer changeCount
+    boolean isRemoved
 
     static mapping = {
         autoTimestamp true

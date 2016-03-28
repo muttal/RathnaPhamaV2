@@ -3,13 +3,14 @@ package rathnapharma
 class EmployeeController {
 
     def add() {
-        String errorMessage = null
         def employeeRequest = request.JSON
+        def change = "Updated"
 
-        def employee = Employee.findByEmail(employeeRequest.email.trim())
-        if(employee == null)
+        def employee = Employee.findById(employeeRequest.id)
+        if(employee == null){
             employee = new Employee()
-
+            change = "Added"
+        }
         employee.firstName = employeeRequest.firstName.trim()
         employee.lastName = employeeRequest.lastName.trim()
         employee.fullName = employeeRequest.firstName.trim()+" "+employeeRequest.lastName.trim()
@@ -30,6 +31,15 @@ class EmployeeController {
         if (!saveOutcome)
             render(status: 200, text: 'Employee could not be added')
         else
-            render(status: 200, text: 'Employee Added')
+            render(status: 200, text: 'Employee '+change)
+    }
+
+    def remove(){
+        def employee = request.JSON
+        def employeeToBeRemoved = Employee.findById(employee.id)
+        employeeToBeRemoved.isRemoved = true
+        def saveOutcome = employeeToBeRemoved.save(flush: true)
+        if (saveOutcome)
+            render(status: 200, text: 'Deleted')
     }
 }
