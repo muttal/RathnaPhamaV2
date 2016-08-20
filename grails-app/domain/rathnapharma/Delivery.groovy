@@ -4,6 +4,7 @@ package rathnapharma
 class Delivery {
 
     static constraints = {
+        chequePath nullable: true
     }
 
     Customer customer
@@ -21,4 +22,5 @@ class Delivery {
     static mapping = {
         autoTimestamp true
     }
+
 }

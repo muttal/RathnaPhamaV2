@@ -26,6 +26,7 @@ class SearchController {
     }
 
     def deliveries() {
+        println "loged in employee id: "+session.getAttribute("loggedInEmployee").id
         def employee = Employee.findByIdAndIsRemoved(session.getAttribute("loggedInEmployee").id, false)
         def finalDeliveries = []
         def deliveries = []

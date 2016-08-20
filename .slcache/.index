@@ -5748,3 +5748,4 @@ n:397:org/codehaus/groovy/grails/web/mapping/UrlMappings
 n:1928:org/codehaus/groovy/grails/commons/GrailsApplication$getParentContext$0
 n:289:org/codehaus/groovy/classgen/asm/OptimizingStatementWriter$1
 n:1393:java_lang_Object$getClass$1
+n:8291:BuildConfig
