@@ -62,7 +62,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: url("RathnaPharma/images/logo-leaf.jpe") no-repeat center center fixed;
+        background: url("images/logo-leaf.jpe") no-repeat center center fixed;
         opacity: 0.1;
         filter: alpha(opacity=10);
     }
@@ -119,7 +119,7 @@
                     dob: today
                 };
                 $scope.loginUser = function () {
-                    $http.get("/RathnaPharma/login/validate/", {
+                    $http.get("/login/validate/", {
                         params: {user: JSON.stringify($scope.user)}
                     }).success(function (data, status) {
                         if (data != "Logged" && status == 200) {
@@ -127,13 +127,13 @@
                             $scope.showMessage = true;
                         }
                         else {
-                            window.location.href = '/RathnaPharma'
+                            window.location.href = '/'
                         }
 
                     })
                 }
                 $scope.registerUser = function () {
-                    $http.post("/RathnaPharma/login/create/", $scope.user).success(function (data, status) {
+                    $http.post("/login/create/", $scope.user).success(function (data, status) {
                         $scope.hello = data;
                         if (data != null)
                             $scope.showMessage = true;
