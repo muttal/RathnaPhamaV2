@@ -15,7 +15,7 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.5/angular-material.min.css"/>
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-    <link rel="stylesheet" href="/RathnaPharma/Rathna-Pharma/app/assets/app.css"/>
+    <link rel="stylesheet" href="/Rathna-Pharma/app/assets/app.css"/>
     <link rel="stylesheet"
           href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css"/>
     <link rel="stylesheet"
@@ -62,7 +62,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: url("RathnaPharma/images/logo-leaf.jpe") no-repeat center center fixed;
+        background: url("images/logo-leaf.jpe") no-repeat center center fixed;
         opacity: 0.1;
         filter: alpha(opacity=10);
     }    
@@ -132,7 +132,7 @@
     var jsSelectedValue = "${session.role}";
 
     function goToHome() {
-        window.location = "/RathnaPharma";
+        window.location = "/";
     }
 
     angular
@@ -195,7 +195,7 @@
                 };
 
                 $scope.openPdf = function () {
-                    $http.get("/RathnaPharma/search/vehiclePass?searchVehicle=" + $scope.gatePassRequest.vehNumber + "&date=" + $scope.gatePassRequest.date.getTime())
+                    $http.get("/search/vehiclePass?searchVehicle=" + $scope.gatePassRequest.vehNumber + "&date=" + $scope.gatePassRequest.date.getTime())
                             .then(function (result) {
                                 console.log(result);
                                 var docDefinition = {
@@ -299,7 +299,7 @@
 
                     var table = $('#example').DataTable({
                         "ajax": {
-                            "url": 'RathnaPharma/search/deliveries'
+                            "url": 'search/deliveries'
                         },
                         "initComplete": function (settings, json) {
                             $scope.deliveriesList = json.data;
@@ -310,7 +310,7 @@
 
                     var employeeTable = $('#employeeDetails').DataTable({
                         "ajax": {
-                            "url": 'RathnaPharma/search/employees'
+                            "url": 'search/employees'
                         },
                         "columns": [
                             {"data": "id"},
@@ -329,7 +329,7 @@
 
                     var customerTable = $('#customerDetails').DataTable({
                         "ajax": {
-                            "url": 'RathnaPharma/search/customers'
+                            "url": 'search/customers'
                         },
                         "columns": [
                             {"data": "id"},
@@ -350,7 +350,7 @@
 
                     var companyTable = $('#companyDetails').DataTable({
                         "ajax": {
-                            "url": 'RathnaPharma/search/company'
+                            "url": 'search/company'
                         },
                         "columns": [
                             {"data": "id"},
@@ -378,7 +378,7 @@
 
                     $scope.showAdd = function (type) {
                         $mdDialog.show({
-                            templateUrl: '/RathnaPharma/Rathna-Pharma/app/pages/' + type + '.html',
+                            templateUrl: '/Rathna-Pharma/app/pages/' + type + '.html',
                             clickOutsideToClose: true
                         })
                     };
@@ -396,7 +396,7 @@
 
                         if (selectedRow) {
                             $mdDialog.show({
-                                templateUrl: '/RathnaPharma/Rathna-Pharma/app/pages/' + type + '.html',
+                                templateUrl: '/Rathna-Pharma/app/pages/' + type + '.html',
                                 clickOutsideToClose: true
                             });
 //                        console.log(selectedRow.id);
@@ -427,7 +427,7 @@
                         $mdDialog.show(confirm).then(function() {
 
                             if (selectedRow) {
-                                $http.post("/RathnaPharma/"+type+"/remove/", selectedRow).success(function (data, status) {
+                                $http.post("/"+type+"/remove/", selectedRow).success(function (data, status) {
                                     console.log(data);
                                     $scope.hello = data;
                                     if (data != null && data == "Deleted") {
@@ -469,7 +469,7 @@
                     });
 
                 });
-//                $http.get("/RathnaPharma/search/deliveries")
+//                $http.get("/search/deliveries")
 //                        .then(function (result) {
 //                            $scope.deliveriesList = result.data;
 //                        })
@@ -536,7 +536,7 @@
                     };
                 })
                 $scope.saveEmployee = function () {
-                    $http.post("/RathnaPharma/employee/add/", $scope.employee).success(function (data, status) {
+                    $http.post("/employee/add/", $scope.employee).success(function (data, status) {
                         $scope.hello = data;
                         if (data != null) {
                             $scope.showMessage = true;
@@ -597,7 +597,7 @@
                 })
 
                 $scope.saveCustomer = function () {
-                    $http.post("/RathnaPharma/customer/add/", $scope.customer).success(function (data, status) {
+                    $http.post("/customer/add/", $scope.customer).success(function (data, status) {
                         $scope.hello = data;
                         if (data != null) {
                             $scope.customer = angular.copy($scope.customerInitial);
@@ -620,20 +620,20 @@
 
                 var deliveryThis = this
                 deliveryThis.querySearch = function (query) {
-                    return $http.get("/RathnaPharma/search/customer?searchParam=" + query)
+                    return $http.get("/search/customer?searchParam=" + query)
                             .then(function (result) {
                                 return result.data;
                             })
                 }
                 deliveryThis.querySearchEmployee = function (query) {
-                    return $http.get("/RathnaPharma/search/employee?searchParam=" + query)
+                    return $http.get("/search/employee?searchParam=" + query)
                             .then(function (result) {
                                 //console.log(result);
                                 return result.data;
                             })
                 }
                 deliveryThis.querySearchCompany = function (query) {
-                    return $http.get("/RathnaPharma/search/company?searchParam=" + query)
+                    return $http.get("/search/company?searchParam=" + query)
                             .then(function (result) {
                                 //console.log(result);
                                 return result.data;
@@ -678,7 +678,7 @@
                         $scope.delivery.customerId = deliveryThis.selectedItem.id
                         $scope.delivery.companyId = deliveryThis.selectedItemCompany.id
                         $scope.delivery.employeeId = deliveryThis.selectedItemEmployee.id
-                        $http.post("/RathnaPharma/delivery/add/", $scope.delivery).success(function (data, status) {
+                        $http.post("/delivery/add/", $scope.delivery).success(function (data, status) {
                             $scope.delivery = angular.copy($scope.deliveryInitial);
                             $scope.showMessage = true;
                             $scope.deliveryForm.$setPristine();
@@ -712,7 +712,7 @@
                 );
 
                 $scope.saveCompany = function () {
-                    $http.post("/RathnaPharma/company/add/", $scope.company).success(function (data, status) {
+                    $http.post("/company/add/", $scope.company).success(function (data, status) {
                         $scope.hello = data;
                         if (data != null) {
                             $scope.company = angular.copy($scope.companyInitial);
@@ -732,10 +732,10 @@
 
                 // route for the home page
                         .when('/', {
-                            templateUrl: '/RathnaPharma/Rathna-Pharma/app/pages/home.html'
+                            templateUrl: '/Rathna-Pharma/app/pages/home.html'
                         })
                         .when('/otherwise', {
-                            templateUrl: '/RathnaPharma/Rathna-Pharma/app/pages/home.html'
+                            templateUrl: '/Rathna-Pharma/app/pages/home.html'
                         })
 
                 // use the HTML5 History API

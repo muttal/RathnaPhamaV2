@@ -15,7 +15,7 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.5/angular-material.min.css"/>
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-    <link rel="stylesheet" href="/RathnaPharma/Rathna-Pharma/app/assets/app.css"/>
+    <link rel="stylesheet" href="/Rathna-Pharma/app/assets/app.css"/>
     <style type="text/css">
     /**
     * Hide when Angular is not yet loaded and initialized
@@ -150,10 +150,10 @@
                 };
                 $routeProvider
                         .when('/', {
-                            templateUrl: '/RathnaPharma/Rathna-Pharma/app/pages/login.html'
+                            templateUrl: '/Rathna-Pharma/app/pages/login.html'
                         })
                         .otherwise({
-                            templateUrl: '/RathnaPharma/Rathna-Pharma/app/pages/login.html'
+                            templateUrl: '/Rathna-Pharma/app/pages/login.html'
                         });
 
                 // use the HTML5 History API
