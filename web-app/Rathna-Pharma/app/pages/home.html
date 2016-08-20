@@ -1,0 +1,267 @@
+<div ng-controller="HomeCtrl" layout="row" style="padding-top: 2%;">
+    <div flex-xs flex-gt-xs="32" layout="column" tabIndex="-1" role="main" style="min-width: 260px;">
+        <div layout-gt-sm="row" ng-hide="sessionConfig.acknowledgements">
+            <md-card style="overflow: hidden;">
+                <md-toolbar style="background-color:#ff9800">
+                    <div class="md-toolbar-tools">
+                        <h2>
+                            <span>Deliveries</span>
+                        </h2>
+                        <span flex></span>
+                        <md-button class="md-icon-button" aria-label="Add">
+                            <md-icon md-svg-icon="/RathnaPharma/images/add.svg" ng-click="showAdd('delivery')"
+                                     style="color: greenyellow;"></md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" aria-label="Edit">
+                            <md-icon md-svg-icon="/RathnaPharma/images/edit.svg" ng-click="showEdit('delivery')"
+                                     style="color: greenyellow;"></md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" aria-label="Delete">
+                            <md-icon md-svg-icon="/RathnaPharma/images/delete.svg" ng-click="delete('delivery',$event)"
+                                     style="color: greenyellow;"></md-icon>
+                        </md-button>
+                    </div>
+                </md-toolbar>
+                <md-card-content layout="row" style="padding-top: 1%;">
+                    <table id="example" class="display" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Customer</th>
+                            <th>Company</th>
+                            <th>Invoice</th>
+                            <th>Value</th>
+                            <th>Cases</th>
+                            <th>Employee</th>
+                            <th>Vehicle Number</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </md-card-content>
+            </md-card>
+        </div>
+        <div layout-gt-sm="row" ng-hide="sessionConfig.employeeList">
+            <md-card style="overflow: hidden;">
+                <md-toolbar>
+                    <div class="md-toolbar-tools">
+                        <h2>
+                            <span>Employees</span>
+                        </h2>
+                        <span flex></span>
+                        <md-button class="md-icon-button" aria-label="Add">
+                            <md-icon md-svg-icon="/RathnaPharma/images/add.svg" ng-click="showAdd('employee')"
+                                     style="color: greenyellow;"></md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" aria-label="Edit">
+                            <md-icon md-svg-icon="/RathnaPharma/images/edit.svg" ng-click="showEdit('employee')"
+                                     style="color: greenyellow;"></md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" aria-label="Delete">
+                            <md-icon md-svg-icon="/RathnaPharma/images/delete.svg" ng-click="delete('employee',$event)"
+                                     style="color: greenyellow;"></md-icon>
+                        </md-button>
+                    </div>
+                </md-toolbar>
+                <md-card-content layout="row" style="padding-top: 1%;">
+                    <table id="employeeDetails" class="display" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Start Date</th>
+                            <th>Last Updated</th>
+                            <th>Role</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </md-card-content>
+            </md-card>
+        </div>
+        <div layout-gt-sm="row" ng-hide="sessionConfig.customerList">
+            <md-card style="overflow: hidden;">
+                <md-toolbar style="background-color:#009688">
+                    <div class="md-toolbar-tools">
+                        <h2>
+                            <span>Customers</span>
+                        </h2>
+                        <span flex></span>
+                        <md-button class="md-icon-button" aria-label="Add Customer">
+                            <md-icon md-svg-icon="/RathnaPharma/images/add.svg" ng-click="showAdd('customer')"
+                                     style="color: greenyellow;"></md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" aria-label="Edit Customer">
+                            <md-icon md-svg-icon="/RathnaPharma/images/edit.svg" ng-click="showEdit('customer')"
+                                     style="color: greenyellow;"></md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" aria-label="Delete Customer">
+                            <md-icon md-svg-icon="/RathnaPharma/images/delete.svg" ng-click="delete('customer',$event)"
+                                     style="color: greenyellow;"></md-icon>
+                        </md-button>
+                    </div>
+                </md-toolbar>
+                <md-card-content layout="row" style="padding-top: 1%;">
+                    <table id="customerDetails" class="display" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Area</th>
+                            <th>City</th>
+                            <th>Cell</th>
+                            <th>Landline</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </md-card-content>
+            </md-card>
+        </div>
+        <div layout-gt-sm="row" ng-hide="sessionConfig.customerList">
+            <md-card style="overflow: hidden;">
+                <md-toolbar style="background-color:#009688">
+                    <div class="md-toolbar-tools">
+                        <h2>
+                            <span>Companies</span>
+                        </h2>
+                        <span flex></span>
+                        <md-button class="md-icon-button" aria-label="Add Company">
+                            <md-icon md-svg-icon="/RathnaPharma/images/add.svg" ng-click="showAdd('company')"
+                                     style="color: greenyellow;"></md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" aria-label="Edit Company">
+                            <md-icon md-svg-icon="/RathnaPharma/images/edit.svg" ng-click="showEdit('company')"
+                                     style="color: greenyellow;"></md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" aria-label="Delete Company">
+                            <md-icon md-svg-icon="/RathnaPharma/images/delete.svg" ng-click="delete('company',$event)"
+                                     style="color: greenyellow;"></md-icon>
+                        </md-button>
+                    </div>
+                </md-toolbar>
+                <md-card-content layout="row" style="padding-top: 1%;">
+                    <table id="companyDetails" class="display" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </md-card-content>
+            </md-card>
+        </div>
+        <div layout-gt-sm="row" ng-hide="sessionConfig.gatePass" style="width: 100%;">
+            <md-card>
+                <md-card-title style="background-color: gray">
+                    <md-card-title-text>
+                        <span class="md-title">Generate Gate Pass</span>
+                    </md-card-title-text>
+                </md-card-title>
+
+                <div layout="column" ng-cloak class="md-inline-form">
+
+                    <md-content layout-padding style="overflow: hidden;">
+                        <div>
+                            <form name="vehiclePassForm" ng-submit="openPdf()">
+                                <div layout-gt-xs="row" style="padding: 0px;">
+                                    <md-input-container class="md-block" flex-gt-xs>
+                                        <label>Vehicle</label>
+                                        <input ng-model="gatePassRequest.vehNumber" required>
+                                    </md-input-container>
+                                    <md-datepicker ng-model="gatePassRequest.date" md-placeholder="Enter date">
+                                    </md-datepicker>
+                                </div>
+                                <div layout-gt-xs="row">
+                                    <md-input-container class="md-block" flex-gt-xs>
+                                        <md-button type="submit" class="md-raised md-primary" aria-label="Submit"
+                                                   style="margin: 0px;padding: 0px;">Generate
+                                        </md-button>
+                                    </md-input-container>
+                                </div>
+                            </form>
+                        </div>
+                    </md-content>
+                </div>
+
+            </md-card>
+        </div>
+        <div layout-gt-sm="row" ng-hide="sessionConfig.deliveryList" layout-wrap style="width: 100%;">
+            <div ng-show="!deliveriesList.length" class="alert alert-info center">
+                <strong>No deliveries scheduled today/ All Deliveries completed.</strong> <br/>Check with your Manager
+                if unsure.
+            </div>
+
+            <md-card ng-repeat="delivery in deliveriesList">
+                <md-toolbar class="md-warn" style="padding-top: 2%;padding-bottom: 2%;">
+                    <div class="md-toolbar-tools">
+                        <h2 class="md-flex">{{delivery[1]}}</h2>
+                    </div>
+                </md-toolbar>
+                <div layout="column" ng-cloak class="md-inline-form">
+                    <md-content layout-padding style="overflow: hidden;">
+                        <div>
+                            <form name="acknowledgementForm" action="/RathnaPharma/delivery/acknowledgement"
+                                  method="post" enctype="multipart/form-data">
+                                <div layout="row" style="padding-top: 3%; padding-bottom: 3%;">
+                                    <div layout="column"><img
+                                            src="https://acuitycomplete.com/wp-content/uploads/2015/11/icon-bookkeeping-50x50.png"/>
+                                    </div>
+                                    <div layout="column" style="padding-left: 3%;"><h4>{{delivery[2]}}</h4></div>
+                                </div>
+                                <div layout="row" style="padding-top: 3%; padding-bottom: 3%;">
+                                    <div layout="column"><img
+                                            src="http://bestwindows8apps.s3.amazonaws.com/icons/Icon.333617.png"/>
+                                    </div>
+                                    <div layout="column" style="padding-left: 3%;"><h4>{{delivery[3]}}</h4></div>
+                                </div>
+                                <div layout="row" style="padding-top: 3%; padding-bottom: 3%;">
+                                    <div layout="column"><img
+                                            src="http://m.topohawk.com/images/map-icon-black.svg"/>
+                                    </div>
+                                    <div layout="column" style="padding-left: 3%;"><h4>{{delivery[8]}}</h4></div>
+                                </div>
+                                <div layout="row">
+                                    <div layout="column"><img
+                                            src="http://www.spectorandco.ca/en/products/images/icons/redes/Packaging_Icon.png"/>
+                                    </div>
+                                    <div layout="column" style="padding-left: 3%;"><h4>{{delivery[4]}}</h4></div>
+                                </div>
+                                <div layout="row">
+                                    <div layout="column" style="padding-left: 3%;">
+                                        <md-button class="md-fab" ng-disabled="true" aria-label="Comment">
+                                            <label for="cameraInput">
+                                                <md-icon md-svg-src="/RathnaPharma/images/camera.svg"></md-icon>
+                                            </label>
+                                        </md-button>
+                                        <input style="display:none" type="file" capture="camera" accept="image/*"
+                                               id="cameraInput" name="cameraInput">
+                                    </div>
+                                    <div layout="column" style="padding-left: 3%;">
+                                        <md-button class="md-fab" ng-disabled="true" aria-label="Comment">
+                                            <label for="cameraInput">
+                                                <md-icon md-svg-src="/RathnaPharma/images/camera.svg"></md-icon>
+                                            </label>
+                                        </md-button>
+                                        <input style="display:none" type="file" capture="camera" accept="image/*"
+                                               id="cameraInputTwo" name="cameraInput">
+                                    </div>
+                                    <div layout="column">
+                                        <input type="hidden" name="deliveryId" value="{{delivery[0]}}"/>
+                                        <md-button type="submit" class="md-fab" ng-disabled="false" aria-label="submit"
+                                                   style="background-color: #3F51B5">
+                                            <md-icon md-svg-src="http://cdn.flaticon.com/svg/19/19973.svg"></md-icon>
+                                        </md-button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </md-content>
+                </div>
+            </md-card>
+        </div>
+    </div>
+
+
+</div>
